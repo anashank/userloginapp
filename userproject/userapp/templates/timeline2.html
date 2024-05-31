@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Timeline</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="{% static 'jquery-3.7.1.min.js' %}"></script>
+</head>
+<body>
+    <section>
+        <div class="container">
+          <h1 class="text-center">Immigrant options</h1>
+
+          <div class="timeline flex-container">
+            {% for stage in stages %}
+            <div class="timeline-item flex-items-default {% if stage.id in completed_stages %}selected{% else %}incomplete{% endif %}">
+              <div class="timeline-content text-left animated bounceIn">
+                <h2>Legal options</h2>
+                <p></p>
+                <!-- <div class="hexagon"></div> -->
+                <i class="material-icons">explore</i>
+              </div>
+            </div>
+            <div class="timeline-item flex-items-default">
+              <div class="timeline-content text-left">
+                <h2>Housing</h2>
+                <p></p>
+                <!-- <div class="hexagon"></div> -->
+                <i class="material-icons">border_style</i>
+              </div>
+            </div>
+            <div class="timeline-item flex-items-default">
+              <div class="timeline-content text-left">
+                <h2>Federal Benefits Programs</h2>
+                <p></p>
+                <!-- <div class="hexagon"></div> -->
+                <i class="material-icons">format_shapes</i>
+              </div>
+            </div>
+            <div class="timeline-item flex-items-default">
+              <div class="timeline-content text-left">
+                <h2>Insurance</h2>
+                <p></p>
+                <!-- <div class="hexagon"></div> -->
+                <i class="material-icons">rate_review</i>
+              </div>
+            </div>
+            <div class="timeline-item flex-items-default">
+              <div class="timeline-content text-left">
+                <h2>Education</h2>
+                <p></p>
+                <!-- <div class="hexagon"></div> -->
+                <i class="material-icons">important_devices</i>
+              </div>
+            </div>
+      
+            <div class="dropdown animated bounceIn" style="left: -88px;">
+              <div class="inner">
+                <div class="arrow-down"></div>
+              </div>
+            </div>
+         {% endfor %}
+          </div>
+          
+
+          {% for stage in stages %}
+          <div class="stage {% if stage.id in completed_stages %}completed{% else %}incomplete{% endif %}">
+              <h2>{{ stage.name }}</h2>
+              <p>{{ stage.description }}</p>
+              {% if stage.id not in completed_stages %}
+                  <a href="{% url 'complete_stage' stage.id %}">Complete Stage</a>
+              {% else %}
+                  <p>Completed</p>
+              {% endif %}
+          </div>
+      {% endfor %}
+        </div>
+      </section>
+      
+  
+<script src="{% static 'js/timeline2.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+</body>
+</html>

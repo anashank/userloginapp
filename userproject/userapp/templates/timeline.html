@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Timeline</title>
+    <style>
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        .stage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            height: 150px;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            text-align: center;
+            position: relative;
+        }
+        .stage.completed {
+            background-color: #c8e6c9;
+        }
+        .stage.incomplete {
+            background-color: #ffcdd2;
+        }
+        .timeline:before {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 100%;
+            background-color: #f32121;
+            top: 0;
+            left: 40%;
+            transform: translateX(-50%);
+        }
+        /* .stage:before {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 100%;
+            background-color: #f32121;
+            top: 0;
+            left: 10%;
+            transform: translateX(-50%);
+        } */
+    </style>
+</head>
+<body>
+    <h1>Learning Path</h1>
+    <div class="timeline">
+        {% for stage in stages %}
+            <div class="stage {% if stage.id in completed_stages %}completed{% else %}incomplete{% endif %}">
+                <h2>{{ stage.name }}</h2>
+                <p>{{ stage.description }}</p>
+                {% if stage.id not in completed_stages %}
+                    <a href="{% url 'complete_stage' stage.id %}">Complete Stage</a>
+                {% else %}
+                    <p>Completed</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+<a href="{% url 'profile' %}">View Profile</a>
+<a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>
